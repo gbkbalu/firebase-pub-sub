@@ -2,6 +2,7 @@ const apiTestDataModel = require('../model/api_test_model')
 const express = require('express')
 const router = express.Router()
 const respHandler = require('../handler/response.handler')
+const wealth_util = require('../util/wealth_util')
 
 router.gettotalrecordscount = async (req, res, next) => {
     const startTime = Date.now();
@@ -37,6 +38,15 @@ router.create = async (req, res, next) => {
         console.error("error in creationg of role", e)
         return next(e)
     }
+}
+
+router.publishmessage = async (req, res, next) => {
+    let start_time = new Date();
+    console.log("api call received to publish message:", new Date())
+    let mailData = { name: "wealthupp", team: "shris", data: req.body };
+    wealth_util.publishMessageToTopic(config.TOPIC_NAME, mailData)
+    console.log("api call ended:", new Date())
+    return respHandler.successHandler(res, { message: "message published to topic", start_time: start_time, end_time: new Date() })
 }
 
 module.exports = router

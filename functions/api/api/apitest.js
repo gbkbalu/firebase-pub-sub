@@ -8,4 +8,5 @@ module.exports = exports = function (options) {
 	app.get('/apitest/getById', controller.getById);
 	app.get('/apitest/emptyapicall', controller.emptyapicall);
 	app.post('/apitest', controller.create);
+	app.post('/apitest/publishmessage', controller.publishmessage)
 };

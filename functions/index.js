@@ -13,28 +13,6 @@ const timeout = require('connect-timeout');
 const respHandler = require('./api/handler/response.handler')
 const config = require('./api/config')
 
-exports.publishMessageToTopic = function (topicName, message) {
-  try {
-    console.log("publishing message:", new Date());
-    console.log("publishing message topic name:", topicName);
-    pubsub
-      .topic(topicName, { autoCreate: true }).publishMessage({ data: Buffer.from(JSON.stringify(message), 'utf8') })
-    console.log("message published successfully!::",topicName)
-  } catch (error) {
-    logger.error(error)
-  }
-  return;
-}
-
-app.get('/publishmessage', async (req, res) => {
-  let start_time = new Date();
-  console.log("api call received:", new Date())
-  let mailData = { name: "wealthupp", team: "shris" };
-  this.publishMessageToTopic(config.TOPIC_NAME, mailData)
-  console.log("api call ended:", new Date())
-  return respHandler.successHandler(res, { message: "message published to topic", start_time: start_time, end_time: new Date() })
-})
-
 app.options('*', cors());
 app.use(function (req, res, next) {
   // Website you wish to allow to connect
@@ -71,5 +49,6 @@ exports.functionsTimeOut = functions.runWith({
 
 exports.onlogcreate = require('./api/events/onlogcreateevent')
 exports.onsecondaryevent = require('./api/events/onsecondaryevent')
-exports.wealthupppubevent = require('./api/events/wealthupppubevent')
+exports.apipostpubevent = require('./api/events/apipostpubevent')
+exports.secondrecpubevent = require('./api/events/secondrecpubevent')
 

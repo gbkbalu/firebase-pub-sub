@@ -18,7 +18,7 @@ router.batchinsertdata = async (req, res, next) => {
         for (let insert_len = start_count; insert_len <= end_count; insert_len++) {
             batch_count++;
             insertion_count++;
-            documents.push({ series: insert_len, create_at: new Date() });
+            documents.push({ series: insert_len, log_created_at: new Date() });
         
             if (config.BATCH_SIZE === batch_count) {
                 // Collect the promise instead of awaiting it

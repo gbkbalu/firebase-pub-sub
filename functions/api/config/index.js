@@ -3,8 +3,9 @@ var _ = require('lodash');
 // All configurations will extend these options
 // ============================================
 var all = {
-  BATCH_SIZE : 300,
-  TOPIC_NAME : "wealthupp-pub-event"
+  BATCH_SIZE: 300,
+  TOPIC_NAME: "wealthupp-pub-event",
+  SECONDARY_PUBSUB_TOPIC: "secondary-pubsub-topic"
 };
 
 // Export the config object based on the NODE_ENV

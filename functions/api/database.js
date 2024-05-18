@@ -30,8 +30,8 @@ class Database {
 
     async create(collection, document) {
         try {
-            document.createdAt = new Date();
-            document.updatedAt = new Date();
+            // document.createdAt = new Date();
+            // document.updatedAt = new Date();
             const docRef = this.firestore.collection(collection).doc(); // Auto-generated ID
             await docRef.set(document);
             return document
