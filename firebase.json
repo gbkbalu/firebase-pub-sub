@@ -19,24 +19,6 @@
     "ui": {
       "enabled": true
     },
-    "singleProjectMode": true,
-    "auth": {
-      "port": 9099
-    },
-    "eventarc": {
-      "port": 9299
-    },
-    "pubsub": {
-      "port": 8085
-    },
-    "database": {
-      "port": 9000
-    },
-    "storage": {
-      "port": 9199
-    }
-  },
-  "storage": {
-    "rules": "storage.rules"
+    "singleProjectMode": true
   }
 }
