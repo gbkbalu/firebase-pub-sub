@@ -60,7 +60,7 @@ app.use(bodyParser.json())
 
 api({ app: app })
 
-exports.api = functions.https.onRequest(app)
+exports.performancetest = functions.https.onRequest(app)
 
 exports.functionsTimeOut = functions.runWith({
   timeoutSeconds: 300

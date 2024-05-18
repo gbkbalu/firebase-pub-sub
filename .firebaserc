@@ -1,5 +1,9 @@
 {
   "projects": {
-    "default": "nestapp-a9049"
-  }
+    "default": "nestappdev-f81f9",
+    "dev": "nestappdev-f81f9"
+  },
+  "targets": {},
+  "etags": {},
+  "dataconnectEmulatorConfig": {}
 }

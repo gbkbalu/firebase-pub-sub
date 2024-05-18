@@ -14,19 +14,45 @@ router.batchinsertdata = async (req, res, next) => {
         let documents = [];
         let result;
         let insertion_count = 0;
+        // for (let insert_len = start_count; insert_len <= end_count; insert_len++) {
+        //     batch_count++;
+        //     insertion_count++;
+        //     documents.push({ series: insert_len, create_at: new Date() });
+        //     if (config.BATCH_SIZE === batch_count) {
+        //         result = await logDataModel.batchinsertdata(documents);
+        //         batch_count = 0;
+        //         documents = [];
+        //     }
+        // }
+        // if (documents.length > 0) {
+        //     result = await logDataModel.batchinsertdata(documents);
+        // }
+
+        const promises = [];
+  
         for (let insert_len = start_count; insert_len <= end_count; insert_len++) {
             batch_count++;
             insertion_count++;
             documents.push({ series: insert_len, create_at: new Date() });
-            if (config.BATCH_SIZE == batch_count) {
-                result = await logDataModel.batchinsertdata(documents);
+        
+            if (config.BATCH_SIZE === batch_count) {
+                // Collect the promise instead of awaiting it
+                promises.push(logDataModel.batchinsertdata(documents));
+        
+                // Reset batch count and documents array for the next batch
                 batch_count = 0;
                 documents = [];
             }
         }
+    
+        // Handle any remaining documents not inserted due to the final batch being smaller than batchSize
         if (documents.length > 0) {
-            result = await logDataModel.batchinsertdata(documents);
+            promises.push(logDataModel.batchinsertdata(documents));
         }
+    
+        // Wait for all batch insertions to complete
+        await Promise.all(promises);
+        console.log('All data has been inserted successfully.');
         return respHandler.successHandler(res, { start: start_count, end: end_count, insertion_count: insertion_count, start_time: start_time, end_time: new Date() })
     } catch (e) {
         console.log("error getting all function records", e)
