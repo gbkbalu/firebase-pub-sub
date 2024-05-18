@@ -11,6 +11,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const timeout = require('connect-timeout');
 const respHandler = require('./api/handler/response.handler')
+const config = require('./api/config')
 
 exports.publishMessageToTopic = function (topicName, message) {
   try {
@@ -26,8 +27,8 @@ exports.publishMessageToTopic = function (topicName, message) {
 app.get('/publishmessage', async (req, res) => {
   let start_time = new Date();
   console.log("api call received:", new Date())
-  let mailData = { name: "shris", otp: 1234 };
-  this.publishMessageToTopic("email-event", "testing", mailData)
+  let mailData = { name: "wealthupp", team: "shris" };
+  this.publishMessageToTopic(config.TOPIC_NAME, mailData)
   console.log("api call ended:", new Date())
   return respHandler.successHandler(res, { message: "message published to topic", start_time: start_time, end_time: new Date() })
 })
@@ -68,4 +69,5 @@ exports.functionsTimeOut = functions.runWith({
 
 exports.onlogcreate = require('./api/events/onlogcreateevent')
 exports.onsecondaryevent = require('./api/events/onsecondaryevent')
+exports.wealthupppubevent = require('./api/events/wealthupppubevent')
 
