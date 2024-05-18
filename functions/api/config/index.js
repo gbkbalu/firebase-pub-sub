@@ -3,7 +3,7 @@ var _ = require('lodash');
 // All configurations will extend these options
 // ============================================
 var all = {
-  BATCH_SIZE: 300,
+  BATCH_SIZE: 100,
   TOPIC_NAME: "wealthupp-pub-event",
   SECONDARY_PUBSUB_TOPIC: "secondary-pubsub-topic"
 };
