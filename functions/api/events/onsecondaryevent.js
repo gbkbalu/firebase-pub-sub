@@ -14,7 +14,7 @@ module.exports = exports = functions.firestore
 
         // Log the document ID and data
         console.log(`secondary_log_data new document created with ID: ${docId}`);
-        console.log('secondary_log_data document data:', newDoc);
+        console.log('secondary_log_data document data:', receivedMessage);
         receivedMessage.secondary_log_received_at = new Date();
         receivedMessage.pubsub_time = new Date();
         wealth_util.publishMessageToTopic(config.SECONDARY_PUBSUB_TOPIC, receivedMessage);
